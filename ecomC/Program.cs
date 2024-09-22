@@ -1,8 +1,12 @@
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using ecomC.Configurations;
 using ecomC.Repositories;
 using ecomC.Services;
-using Microsoft.Extensions.Options;
-using MongoDB.Driver;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,6 +33,33 @@ builder.Services.AddScoped(s =>
 builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Register the repository
 builder.Services.AddScoped<ProductService>(); // Register ProductService
 
+// Configure Authentication
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    })
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+        };
+    });
+
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminOnly", policy => policy.RequireRole("Administrator"));
+    options.AddPolicy("Vendor", policy => policy.RequireRole("Vendor"));
+    options.AddPolicy("CSR", policy => policy.RequireRole("CSR"));
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -39,7 +70,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 // Map controllers
