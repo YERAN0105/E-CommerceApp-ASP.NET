@@ -26,6 +26,12 @@ public class AdminController : ControllerBase
     [HttpPost("create-vendor")]
     public async Task<IActionResult> CreateVendor([FromBody] RegisterDTO vendorDto)
     {
+        var userExists = await _users.Find(u => u.Username == vendorDto.Username).FirstOrDefaultAsync();
+        if (userExists != null)
+        {
+            return BadRequest("Username already taken.");
+        }
+        
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(vendorDto.Password);
 
         var user = new User
@@ -43,6 +49,11 @@ public class AdminController : ControllerBase
     [HttpPost("create-csr")]
     public async Task<IActionResult> CreateCsr([FromBody] RegisterDTO csrDto)
     {
+        var userExists = await _users.Find(u => u.Username == csrDto.Username).FirstOrDefaultAsync();
+        if (userExists != null)
+        {
+            return BadRequest("Username already taken.");
+        }
         var hashedPassword = BCrypt.Net.BCrypt.HashPassword(csrDto.Password);
 
         var user = new User
