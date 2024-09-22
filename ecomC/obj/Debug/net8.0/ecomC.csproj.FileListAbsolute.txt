@@ -44,3 +44,13 @@ C:\Learning\ecomC\ecomC\obj\Debug\net8.0\refint\ecomC.dll
 C:\Learning\ecomC\ecomC\obj\Debug\net8.0\ecomC.pdb
 C:\Learning\ecomC\ecomC\obj\Debug\net8.0\ecomC.genruntimeconfig.cache
 C:\Learning\ecomC\ecomC\obj\Debug\net8.0\ref\ecomC.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\BCrypt.Net-Next.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.IdentityModel.Logging.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\Microsoft.IdentityModel.Tokens.dll
+C:\Learning\ecomC\ecomC\bin\Debug\net8.0\System.IdentityModel.Tokens.Jwt.dll
+C:\Learning\ecomC\ecomC\obj\Debug\net8.0\ecomC.sourcelink.json
