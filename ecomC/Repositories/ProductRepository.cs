@@ -21,7 +21,18 @@ public class ProductRepository : IProductRepository
     public async Task<Product> GetProductById(string productId) => 
         await _products.Find(p => p.ProductId == productId).FirstOrDefaultAsync();
 
-    public async Task CreateProduct(Product product) => await _products.InsertOneAsync(product);
+    public async Task CreateProduct(Product product)
+    {
+        
+        await _products.InsertOneAsync(product);
+    }
+    
+    public async Task<bool> ProductExists(string vendorId, string productName)
+    {
+        var product = await _products.Find(p => p.VendorId == vendorId && p.Name == productName).FirstOrDefaultAsync();
+        return product != null;
+    }
+
 
     public async Task UpdateProduct(Product product) =>
         await _products.ReplaceOneAsync(p => p.ProductId == product.ProductId, product);

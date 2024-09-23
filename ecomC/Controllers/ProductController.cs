@@ -28,8 +28,7 @@ public class ProductController : ControllerBase
     [HttpGet("{id}")]
     public async Task<IActionResult> GetProductById(string id)
     {
-        var product = await _productService.GetProductById(id)
-            ;
+        var product = await _productService.GetProductById(id);
         if (product == null) return NotFound();
         return Ok(product);
     }
@@ -37,10 +36,19 @@ public class ProductController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> CreateProduct([FromBody] ProductDTO productDTO)
     {
-        var vendorId = User.Identity.Name; // Assuming authentication provides vendor ID
-        await _productService.CreateProduct(productDTO, vendorId);
-        return CreatedAtAction(nameof(GetProductById), new { id = productDTO.Name }, productDTO);
+        var vendorId = "66efc3befc295983cd89a6b4"; // Assuming authentication provides vendor ID
+    
+        try
+        {
+            await _productService.CreateProduct(productDTO, vendorId);
+            return CreatedAtAction(nameof(GetProductById), new { id = productDTO.Name }, productDTO);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new { message = ex.Message });
+        }
     }
+
 
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateProduct(string id, [FromBody] ProductDTO productDTO)
@@ -52,8 +60,7 @@ public class ProductController : ControllerBase
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteProduct(string id)
     {
-        await _productService.DeleteProduct(id)
-            ;
+        await _productService.DeleteProduct(id);
         return NoContent();
     }
 

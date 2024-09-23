@@ -23,6 +23,13 @@ public class ProductService
 
     public async Task CreateProduct(ProductDTO productDTO, string vendorId)
     {
+        // Check if the product already exists
+        if (await _productRepository.ProductExists(vendorId, productDTO.Name))
+        {
+            throw new Exception("A product with the same name already exists for this vendor.");
+        }
+
+        // If product does not exist, proceed with creation
         var product = new Product
         {
             Name = productDTO.Name,
@@ -33,6 +40,7 @@ public class ProductService
         };
         await _productRepository.CreateProduct(product);
     }
+
 
     public async Task UpdateProduct(string productId, ProductDTO productDTO)
     {
