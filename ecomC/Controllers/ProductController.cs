@@ -18,14 +18,14 @@ public class ProductController : ControllerBase
         _productService = productService;
     }
 
-    [HttpGet]
+    [HttpGet("GetAllProducts")]
     public async Task<IActionResult> GetAllProducts()
     {
         var products = await _productService.GetAllProducts();
         return Ok(products);
     }
 
-    [HttpGet("{id}")]
+    [HttpGet("GetProductById{id}")]
     public async Task<IActionResult> GetProductById(string id)
     {
         var product = await _productService.GetProductById(id);
@@ -33,7 +33,7 @@ public class ProductController : ControllerBase
         return Ok(product);
     }
 
-    [HttpPost]
+    [HttpPost("CreateProduct")]
     public async Task<IActionResult> CreateProduct([FromBody] ProductDTO productDTO)
     {
         var vendorId = "66efc3befc295983cd89a6b4"; // Assuming authentication provides vendor ID
@@ -50,14 +50,14 @@ public class ProductController : ControllerBase
     }
 
 
-    [HttpPut("{id}")]
+    [HttpPut("UpdateProduct{id}")]
     public async Task<IActionResult> UpdateProduct(string id, [FromBody] ProductDTO productDTO)
     {
         await _productService.UpdateProduct(id, productDTO);
         return NoContent();
     }
 
-    [HttpDelete("{id}")]
+    [HttpDelete("DeleteProduct{id}")]
     public async Task<IActionResult> DeleteProduct(string id)
     {
         await _productService.DeleteProduct(id);
@@ -67,16 +67,14 @@ public class ProductController : ControllerBase
     [HttpPost("{id}/activate")]
     public async Task<IActionResult> ActivateProduct(string id)
     {
-        await _productService.ActivateProduct(id)
-            ;
+        await _productService.ActivateProduct(id);
         return NoContent();
     }
 
     [HttpPost("{id}/deactivate")]
     public async Task<IActionResult> DeactivateProduct(string id)
     {
-        await _productService.DeactivateProduct(id)
-            ;
+        await _productService.DeactivateProduct(id);
         return NoContent();
     }
 }

@@ -51,8 +51,7 @@ public class AuthController : ControllerBase
         return Ok("User registered successfully.");
     }
     
-    
-    [HttpPost("login")]
+    [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginDTO loginDto)
     {
         var user = await _users.Find(u => u.Username == loginDto.Username).FirstOrDefaultAsync();
