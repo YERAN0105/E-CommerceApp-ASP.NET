@@ -6,7 +6,6 @@ namespace ecomC.Controllers;
 // Controllers/ProductController.cs
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-
 [ApiController]
 [Route("api/[controller]")]
 public class ProductController : ControllerBase
@@ -36,7 +35,14 @@ public class ProductController : ControllerBase
     [HttpPost("CreateProduct")]
     public async Task<IActionResult> CreateProduct([FromBody] ProductDTO productDTO)
     {
-        var vendorId = "66efc3befc295983cd89a6b4"; // Assuming authentication provides vendor ID
+        //var vendorId = "66efc3befc295983cd89a6b4"; // Assuming authentication provides vendor ID
+        // Retrieve the vendor ID from the authenticated user's claims
+        var vendorId = User.FindFirst("id")?.Value; // Assuming "id" contains the vendor ID
+    
+        if (string.IsNullOrEmpty(vendorId))
+        {
+            return BadRequest("Vendor ID is not available.");
+        }
     
         try
         {
