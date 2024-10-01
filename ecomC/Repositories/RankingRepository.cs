@@ -26,4 +26,7 @@ public class RankingRepository : IRankingRepository
         var update = Builders<Ranking>.Update.Set(r => r.Comment, newComment);
         await _rankings.UpdateOneAsync(r => r.RankingId == rankingId, update);
     }
+    
+    public async Task<IEnumerable<Ranking>> GetRankingsByCustomerId(string customerId) =>
+        await _rankings.Find(r => r.CustomerId == customerId).ToListAsync();
 }

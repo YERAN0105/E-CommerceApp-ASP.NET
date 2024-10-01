@@ -21,6 +21,18 @@ public class RankingController : ControllerBase
         var rankings = await _rankingService.GetRankingsByVendorId(vendorId);
         return Ok(rankings);
     }
+    
+    // New API to get all ratings using CustomerId
+    [HttpGet("customer/{customerId}/ratings")]
+    public async Task<IActionResult> GetRatingsByCustomer(string customerId)
+    {
+        var ratings = await _rankingService.GetRankingsByCustomer(customerId);
+        if (ratings == null || !ratings.Any())
+        {
+            return NotFound("No ratings found for this customer.");
+        }
+        return Ok(ratings);
+    }
 
     [HttpPost("create-ranking")]
     public async Task<IActionResult> CreateRanking([FromBody] RankingDTO rankingDTO)

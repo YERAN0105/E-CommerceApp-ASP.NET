@@ -8,4 +8,5 @@ public interface IRankingRepository
     Task<Ranking> GetRankingById(string rankingId);
     Task CreateRanking(Ranking ranking);
     Task UpdateComment(string rankingId, string newComment);
+    Task<IEnumerable<Ranking>> GetRankingsByCustomerId(string customerId);
 }

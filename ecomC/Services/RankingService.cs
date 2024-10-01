@@ -11,6 +11,9 @@ public class RankingService
 
     public async Task<IEnumerable<Ranking>> GetRankingsByVendorId(string vendorId) =>
         await _rankingRepository.GetRankingsByVendorId(vendorId);
+    
+    public async Task<IEnumerable<Ranking>> GetRankingsByCustomer(string customerId) =>
+        await _rankingRepository.GetRankingsByCustomerId(customerId);
 
     public async Task CreateRanking(Ranking ranking) =>
         await _rankingRepository.CreateRanking(ranking);
