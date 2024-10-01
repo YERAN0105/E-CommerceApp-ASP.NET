@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ecomC.DTOs;
 using ecomC.Models;
 
 [ApiController]
@@ -21,11 +22,19 @@ public class RankingController : ControllerBase
         return Ok(rankings);
     }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateRanking([FromBody] Ranking ranking)
+    [HttpPost("create-ranking")]
+    public async Task<IActionResult> CreateRanking([FromBody] RankingDTO rankingDTO)
     {
+        var ranking = new Ranking
+        {
+            VendorId = rankingDTO.VendorId,
+            Rating = rankingDTO.Rating,
+            Comment = rankingDTO.Comment,
+            CustomerId = rankingDTO.CustomerId
+        };
+
         await _rankingService.CreateRanking(ranking);
-        return CreatedAtAction(nameof(GetRankingsByVendorId), new { vendorId = ranking.VendorId }, ranking);
+        return CreatedAtAction(nameof(CreateRanking), new { id = ranking.RankingId }, ranking);
     }
 
     [HttpPut("{rankingId}/comment")]

@@ -32,6 +32,9 @@ builder.Services.AddScoped(s =>
 // Register IProductRepository and ProductService
 builder.Services.AddScoped<IProductRepository, ProductRepository>(); // Register the repository
 builder.Services.AddScoped<ProductService>(); // Register ProductService
+builder.Services.AddScoped<IRankingRepository, RankingRepository>();
+builder.Services.AddScoped<RankingService>();
+
 
 // Configure Authentication
 builder.Services.AddAuthentication(options =>

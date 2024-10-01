@@ -13,7 +13,7 @@ namespace ecomC.Models
         
         public string CustomerId { get; set; }
         
-        public int Value { get; set; } // Ranking value (e.g., 1 to 5)
+        public int Rating { get; set; } // Ranking value (e.g., 1 to 5)
         
         public string Comment { get; set; } // Customer comment
     }

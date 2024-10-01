@@ -17,4 +17,14 @@ public class RankingService
 
     public async Task UpdateComment(string rankingId, string newComment) =>
         await _rankingRepository.UpdateComment(rankingId, newComment);
+    
+    public async Task<double> GetAverageRanking(string vendorId)
+    {
+        var rankings = await GetRankingsByVendorId(vendorId);
+        if (rankings == null || !rankings.Any())
+            return 0;
+
+        return rankings.Average(r => r.Rating);
+    }
+
 }
